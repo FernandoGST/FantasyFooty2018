@@ -1,0 +1,13 @@
+
+form.signup,
+form.login {
+  margin-top: 50px;
+
+}
+
+#main-login-form{
+  margin-top: 3em;
+  text-align: center;
+  background-color: rgba(245, 245, 245, .90);
+  /* opacity: .4; */
+}

@@ -1,0 +1,7 @@
+.game-card {
+  margin-top: 2em;
+}
+
+.team-card:hover{
+  background-color: lightgray;
+}
