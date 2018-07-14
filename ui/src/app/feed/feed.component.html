@@ -1,0 +1,59 @@
+<div class="container" *ngIf="feed != null">
+  <br>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="card card-body team-card-body form-group">
+        <label for="date">Pick a date</label>
+        <input #date type="date" (change)="onDateChange(date.value)" class="form-control">
+        <button (click)="toggleFav()" class="btn {{(fav)?'btn-warning':'btn-success'}} btn-sm">{{(fav)?'Show all':'Only Favorites'}} </button>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row" *ngIf="message != null">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="card card-body team-card-body">
+        <h1 class="text-danger">{{message}}</h1>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+  <a class="game-card" *ngFor="let event of feed.sport_events" [routerLink]="['/game-stats', event.id]">
+    <div class="row " *ngIf="!fav || (user.favorite_tournaments[event.tournament.name] != null && fav)">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <a class="card team-card-body">
+          <h5 *ngIf="user.favorite_tournaments[event.tournament.name] != null" class="card-header text-white bg-warning" role="alert">
+            {{event.tournament.name}}
+          </h5>
+          <h5 *ngIf="user.favorite_tournaments[event.tournament.name] == null" class="card-header" role="alert">
+            {{event.tournament.name}}
+          </h5>
+          <h5 class="card-header">{{event.venue.name}}</h5>
+          <div class="card-body">
+            <div class="row">
+              <a id="{{event.competitors[0].id}}" class="col-5 team-card">
+                <img src="https://openclipart.org/download/288976/nicubunu-Soccer-ball-remix-monsterbraingames.svg" />
+                <h1>{{event.competitors[0].name}}</h1>
+              </a>
+              <div class="col-2" style="padding-top: 5.5em">
+                <img src="https://vignette.wikia.nocookie.net/deathbattle/images/e/e4/4815227-0465458226-45858.png" />
+              </div>
+              <a id="{{event.competitors[0].id}}" class="col-5 team-card">
+                <img src="https://openclipart.org/download/288976/nicubunu-Soccer-ball-remix-monsterbraingames.svg" />
+                <h1>{{event.competitors[1].name}}</h1>
+              </a>
+            </div>
+          </div>
+          <div class="card-footer">
+            @ {{event.scheduled}}
+          </div>
+        </a>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </a>
+</div>

@@ -1,0 +1,48 @@
+<div class="container" *ngIf="event_stats != null">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card body-card">
+        <div class="card-body">
+          <h1>Results</h1>
+          Referee: {{getRef().name}} - [{{getRef().nationality}}]
+          <br> Attendance: {{event_stats.sport_event_conditions.attendance}}
+          <br> Venue: {{event_stats.sport_event.venue.name}}
+          <br> Capacity: {{event_stats.sport_event.venue.capacity}}
+          <br> Date: {{getSchedule()}}
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6" *ngFor="let competidor of event_stats.sport_event.competitors">
+      <div class="card body-card">
+        <div class="card-body">
+          <h1 class="{{(isWinner(competidor.id)?'text-success':(isWinner(competidor.id)!== undefined)?'text-danger':'')}}">
+            {{competidor.name}} -
+            <small>{{getTeamScore(competidor.id)}}</small>
+          </h1>
+          <hr> Statistics
+          <hr>
+          <div>
+            <ul>
+              <li *ngFor="let stat of objectKeys(getTeamStats(competidor.id).statistics)">{{stat}}:{{getTeamStats(competidor.id).statistics[stat]}}</li>
+            </ul>
+
+          </div>
+          <hr> Team
+          <hr>
+          <div *ngFor="let player of getTeamStats(competidor.id).players">
+            {{player.name}}
+            <ul>
+              <li>Goals Scored: {{player.goals_scored}}</li>
+              <li>Yellow cards: {{player.yellow_cards}}</li>
+              <li>Red cards: {{player.red_cards}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

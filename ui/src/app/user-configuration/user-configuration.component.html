@@ -1,0 +1,65 @@
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          Profile Configuration
+          <hr>
+          <div class="form-group">
+            <label for="user-fullname">Full Name</label>
+            <input type="text" name="fullname" [value]="user.full_name" class="form-control" #name (change)="onNameChange(name.value)"
+            />
+          </div>
+          <hr>
+          <div class="form-group">
+            <label for="user-fullname">Email</label>
+            <input type="email" name="email" [value]="user.email" class="form-control" #email (change)="onEmailChange(email.value)" />
+          </div>
+          <hr>
+          <div class="form-group">
+            <label for="user-fullname">Birth Date</label>
+            <input type="text" #dob name="birthDate" [value]="user.dob" class="form-control" (change)="onDOBChange(dob.value)" />
+          </div>
+          <hr>
+          <label>Favorite Tournaments</label>
+          <div class="form-check" *ngFor="let t of tlist">
+            <input [checked]="user.favorite_tournaments[t.name] != null" class="form-check-input" name="Tournaments" type="checkbox" [value]="t.id"
+              id="defaultCheck{{t.id}}" (click)="onCheckBoxClick(t.id, t.name)">
+            <label class="form-check-label" for="t{{i}}">
+              {{t.name}}
+            </label>
+          </div>
+          <hr>
+          <div class="btn btn-lg btn-info" (click)="onSaveClick()">Save</div>
+          <div class="btn btn-lg btn-danger"(click)="onDeleteAccountClick()">Delete account</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          User Card
+          <hr>
+          <div class="offset-1 col-md-10">
+            <div class="card" style="width: 100%;">
+              <img class="card-img-top" [src]='image' alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{user.full_name}}</h5>
+                <div class="card-text">
+                  BirthDay: {{user.dob}}
+                  <br> Favorite Leagues:
+                  <br>
+                  <ul>
+                    <li *ngFor="let t of objectKeys(user.favorite_tournaments)">{{t}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row"></div>
+</div>
